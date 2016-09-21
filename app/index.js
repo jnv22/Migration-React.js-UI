@@ -3,38 +3,15 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Admin from './admin';
-import components from "./mdlComponents";
+
+import Admin from './views/admin';
+import Main from './views/main'
 
 injectTapEventPlugin();
 require('./styles/app.scss')
 require ('./styles/font-awesome/css/font-awesome.css');
 
 import { Router, Route, Link, browserHistory} from 'react-router';
-
-const Main = React.createClass({
-  getInitialState: function() {
-    return {
-      showCenterMenu: true,
-      showTopMenu: false
-    }
-  },
-
-  toggleMenuState: function(centerMenu, topMenu) {
-    this.setState({
-      showCenterMenu: showCenterMenu,
-      showTopMenu: showTopMenu
-    });
-  },
-
-  render: function() {
-    return (
-      <div className="MainSite">
-        <h2>Main Page</h2>
-      </div>
-    )
-  }
-});
 
 const NoMatch = React.createClass({
   render: function() {

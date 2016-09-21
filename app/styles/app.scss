@@ -3,9 +3,19 @@ $backgroundColor: #EEEEEE;
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
 }
 
 #main {
-  background-color: $backgroundColor;
+  height: 100%;
+  .content {
+    background-color: $backgroundColor;
+    height: 100%;
+
+    #map1 {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

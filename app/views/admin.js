@@ -1,6 +1,6 @@
 import React from "react";
-import components from "../app/mdlComponents";
-import api from "./api";
+// import components from "../mdlComponents";
+// import api from "../api";
 
 var admin = React.createClass({
 render: function() {
