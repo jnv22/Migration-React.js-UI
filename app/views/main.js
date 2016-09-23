@@ -1,23 +1,50 @@
-import React from "react";
-import components from "../components/mdlComponents";
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import React from "react"
+import components from "../components/mdlComponents"
+import api from "../api"
+import moment from "moment"
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 var classNames = require('classnames');
 
 var MapDisplay = React.createClass({
+  getInitialState: function() {
+      return {
+        birds: []
+      }
+  },
+
+  componentDidMount: function() {
+    api.birds()
+      .then((totalBirds) => {
+          this.setState({
+            birds: totalBirds.data.result
+          })
+      })
+  },
+
   render: function() {
-    const position = [35.00, -77.5];
+    var birds = this.state.birds
+
+    //set to center of USA
+    const position = [39.8282, -98.5795];
+
     return (
-      <Map center={position} zoom={13}>
+      <Map center={position} zoom={4}>
       <TileLayer
         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={position}>
+      {birds.map(function(bird) {
+        return <Marker key={bird._id} position={[bird.location.lat, bird.location.lng]}>
         <Popup>
-          <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
+          <span>
+            <b>Species: </b>{bird.species}<br/>
+            <b>Quantity: </b>{bird.quantity}<br/>
+            <b>Time: </b>{moment(bird.ts).format("dddd, MMMM Do YYYY, h:mm a")}<br/>
+          </span>
         </Popup>
       </Marker>
+      })}
     </Map>
     )
   }

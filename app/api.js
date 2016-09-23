@@ -1,11 +1,11 @@
 import axios from "axios"
+import env from "./env"
 
-export default {
-  example: function(flightQuery) {
+module.exports = {
+  birds: function() {
     return axios({
-    method: 'post',
-    url: '',
-    data:'',
+    method: 'get',
+    url: env.URL_ROOT + '/birds',
     headers: {'Content-Type': 'application/json'}
     })
   }
