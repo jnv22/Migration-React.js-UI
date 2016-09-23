@@ -12,10 +12,10 @@ html, body {
   .content {
     background-color: $backgroundColor;
     height: 100%;
-
-    #map1 {
+    .leaflet-container {
       height: 100%;
       width: 100%;
+      margin: 0 auto;
     }
   }
 }

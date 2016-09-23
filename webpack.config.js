@@ -16,7 +16,7 @@ module.exports =  {
       {test: /\.jsx?$/, include: path.resolve(__dirname, 'app'), loader: "babel"},
       {test: /\.jpg$/, loader: "url-loader?limit=10000&minetype=image/jpg" },
       {test: /\.scss?$/, loaders: ['style', 'css', 'sass']},
-      { test: /\.css$/, loader: "style-loader!css-loader" },
+      {test: /\.css$/, loader: "style-loader!css-loader" },
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml'},
       {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
       {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
@@ -33,6 +33,13 @@ module.exports =  {
   ],
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './',
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:3000',
+        secure: false,
+        changeOrigin: true
+      }
+    }
   }
 };

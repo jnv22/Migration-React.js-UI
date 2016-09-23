@@ -1,20 +1,25 @@
 import React from 'react';
 
 import AutoComplete from 'material-ui/AutoComplete';
-
-
-
-
-
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationClose from 'material-ui/svg-icons/content/add';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+
+
+
+
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
-import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
@@ -23,7 +28,6 @@ import {Link, browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
 import Flight from 'material-ui/svg-icons/maps/flight';
 import Library from 'material-ui/svg-icons/maps/local-library';
 import Articles from 'material-ui/svg-icons/editor/insert-comment';
@@ -120,6 +124,72 @@ const Components = {
       )
     }
   }),
+
+  Header: React.createClass({
+    render: function() {
+      return <AppBar
+          title={this.props.title}
+          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          iconElementRight={this.props.isSignedIn ?
+            <IconMenu
+              iconButtonElement={
+                <IconButton><MoreVertIcon /></IconButton>
+              }
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem primaryText="Profile" onTouchTap={this.props.openModal}/>
+              <MenuItem primaryText="About" onTouchTap={this.props.openModal}/>
+              <MenuItem primaryText="Sign out" onTouchTap={this.props.openModal}/>
+            </IconMenu> :
+            <IconMenu
+              iconButtonElement={
+                <IconButton><MoreVertIcon /></IconButton>
+              }
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem primaryText="Sign in" href={this.props.signIn} />
+              <MenuItem primaryText="About" onTouchTap={this.props.openModal}/>
+            </IconMenu>
+          }
+        />
+    }
+  }),
+
+Dialog: React.createClass({
+  render: function() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.props.handleClose}
+      />,
+      <FlatButton
+        label="ok"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.props.handleClose}
+      />,
+    ];
+    return (
+      <div>
+      <Dialog
+        title="Dialog With Actions"
+        actions={actions}
+        modal={false}
+        open={this.props.open}
+        onRequestClose={this.props.handleClose}
+      >
+        The actions in this window were passed in as an array of React objects.
+      </Dialog>
+    </div>
+    )
+  }
+}),
+
+
+
 
   MediaTile: React.createClass({
     selectNewsArticle: function(tile) {
@@ -227,21 +297,6 @@ const Components = {
     }
   }),
 
-  Header: React.createClass({
-    render: function() {
-      return (
-      <div>
-        <div id="header" className={this.props.showMenu ? "hide" : ""}>
-          <AppBar
-            title={this.props.title}
-            onLeftIconButtonTouchTap={this.props.toggleMenuState}
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
-          />
-        </div>
-      </div>
-      )
-    }
-  }),
 
   DatePicker: React.createClass({
     render: function() {

@@ -26,6 +26,7 @@ const App = () => (
     <Router history={browserHistory}>
      <Route path="/" component={Main}>
        <Route path="admin" component={Admin}/>
+       <Route path="/loginSuccess" component={Admin}/>
      </Route>
      <Route path="*" component={NoMatch}/>
     </Router>

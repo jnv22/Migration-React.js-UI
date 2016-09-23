@@ -2,39 +2,22 @@ import React from "react"
 import components from "../components/mdlComponents"
 import api from "../api"
 import moment from "moment"
+import env from "../env"
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
-var classNames = require('classnames');
 
 var MapDisplay = React.createClass({
-  getInitialState: function() {
-      return {
-        birds: []
-      }
-  },
-
-  componentDidMount: function() {
-    api.birds()
-      .then((totalBirds) => {
-          this.setState({
-            birds: totalBirds.data.result
-          })
-      })
-  },
-
   render: function() {
-    var birds = this.state.birds
 
     //set to center of USA
     const position = [39.8282, -98.5795];
-
     return (
       <Map center={position} zoom={4}>
       <TileLayer
         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {birds.map(function(bird) {
+      {this.props.birds.map(function(bird) {
         return <Marker key={bird._id} position={[bird.location.lat, bird.location.lng]}>
         <Popup>
           <span>
@@ -50,22 +33,61 @@ var MapDisplay = React.createClass({
   }
 })
 
-var Menu = React.createClass({
+var Header = React.createClass({
   render: function() {
-    return (
-      <div id="searchBar">
-      <components.AutoComplete onInput={this.toggleMenuState}/>
-      </div>
-    )
+    return <components.Header  {...this.props}/>
   }
 })
 
 module.exports = React.createClass({
+  getInitialState: function() {
+      return {
+        birds: [],
+        isSignedIn: '',
+        open: false,
+        currentModalView: ''
+      }
+  },
+
+  componentDidMount: function() {
+    api.birds()
+      .then((totalBirds) => {
+        this.setState({
+          birds: totalBirds.data.result
+        })
+      })
+    api.checkUserLoggedIn()
+      .then((user) => {
+        this.setState({
+          isSignedIn: true
+        })
+      })
+      .catch((err) => {
+        this.setState({
+          isSignedIn: false
+        })
+      })
+  },
+
+  openModal: function() {
+    this.setState({
+      open: true
+    })
+  },
+
+  closeModal: function() {
+    this.setState({
+      open: false
+    });
+  },
+
   render: function() {
+    let signInURL = env.URL_ROOT + '/auth/facebook'
     return (
       <div className="content">
-        <Menu />
-        <MapDisplay />
+        <Header title="Migration" signIn={signInURL} isSignedIn={this.state.isSignedIn} openModal={this.openModal}/>
+        <components.Dialog  handleClose={this.closeModal} open={this.state.open}/>
+        <MapDisplay birds={this.state.birds}/>
       </div>
     )
   }

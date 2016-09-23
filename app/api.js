@@ -8,5 +8,19 @@ module.exports = {
     url: env.URL_ROOT + '/birds',
     headers: {'Content-Type': 'application/json'}
     })
+  },
+  checkUserLoggedIn: function() {
+    return axios({
+    method: 'head',
+    url: env.URL_ROOT + '/user',
+    headers: {'Content-Type': 'application/json'}
+    })
+  },
+  getUser: function() {
+    return axios({
+    method: 'get',
+    url: env.URL_ROOT + '/user',
+    headers: {'Content-Type': 'application/json'}
+    })
   }
 }

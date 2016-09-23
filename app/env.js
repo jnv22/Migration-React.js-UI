@@ -1,3 +1,3 @@
 module.exports = {
-  URL_ROOT: 'http://localhost:3000/api'
+  URL_ROOT: 'http://localhost:8080/api'
 }
