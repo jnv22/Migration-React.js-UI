@@ -22,5 +22,12 @@ module.exports = {
     url: env.URL_ROOT + '/user',
     headers: {'Content-Type': 'application/json'}
     })
+  },
+  getLocation: function(city) {
+    return axios({
+    method: 'get',
+    url: env.URL_ROOT + '/location/' + city,
+    headers: {'Content-Type': 'application/json'}
+    })
   }
 }

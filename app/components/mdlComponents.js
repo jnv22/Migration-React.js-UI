@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/content/add';
+import AddNewBird from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -117,9 +117,11 @@ const Components = {
       return (
         <AutoComplete
           floatingLabelText="Type Location"
+          onUpdateInput={this.props.updateLocation}
           filter={AutoComplete.fuzzyFilter}
-          dataSource={fruit}
-          maxSearchResults={5}
+          dataSource={this.props.location}
+          maxSearchResults={10}
+          onNewRequest={this.props.locationSelected}
         />
       )
     }
@@ -127,11 +129,14 @@ const Components = {
 
   Header: React.createClass({
     render: function() {
-      var loggedInMenu = ["Profile", "About", "Sign Out"]
       return <AppBar
           title={this.props.title}
-          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-          iconElementRight={this.props.isSignedIn ?
+          iconElementLeft={
+            <IconButton
+            onTouchTap={this.props.openModal.bind(null, "Add")}
+            ><AddNewBird /></IconButton>
+          }
+          iconElementRight={this.props.signedIn ?
             <IconMenu
               iconButtonElement={
                 <IconButton><MoreVertIcon /></IconButton>
@@ -150,7 +155,7 @@ const Components = {
               targetOrigin={{horizontal: 'right', vertical: 'top'}}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
-              <MenuItem primaryText="Sign in" href={this.props.signIn} />
+              <MenuItem primaryText="Sign in" href={this.props.signInURL} />
               <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
             </IconMenu>
           }
