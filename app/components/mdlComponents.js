@@ -130,36 +130,36 @@ const Components = {
   Header: React.createClass({
     render: function() {
       return <AppBar
-          title={this.props.title}
-          iconElementLeft={
-            <IconButton
-            onTouchTap={this.props.openModal.bind(null, "Add")}
-            ><AddNewBird /></IconButton>
-          }
-          iconElementRight={this.props.signedIn ?
-            <IconMenu
-              iconButtonElement={
-                <IconButton><MoreVertIcon /></IconButton>
-              }
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
-              <MenuItem primaryText="Profile" onTouchTap={this.props.openModal.bind(null, "Profile")}/>
-              <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
-              <MenuItem primaryText="Sign Out" onTouchTap={this.props.openModal.bind(null, "Sign Out")}/>
-            </IconMenu> :
-            <IconMenu
-              iconButtonElement={
-                <IconButton><MoreVertIcon /></IconButton>
-              }
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
-              <MenuItem primaryText="Sign in" href={this.props.signInURL} />
-              <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
-            </IconMenu>
-          }
-        />
+        title={this.props.title}
+        iconElementLeft={
+          <IconButton
+          onTouchTap={this.props.openModal.bind(null, "Add")}
+          ><AddNewBird /></IconButton>
+        }
+        iconElementRight={this.props.signedIn ?
+          <IconMenu
+            iconButtonElement={
+              <IconButton><MoreVertIcon /></IconButton>
+            }
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem primaryText="Profile" onTouchTap={this.props.openModal.bind(null, "Profile")}/>
+            <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
+            <MenuItem primaryText="Sign Out" onTouchTap={this.props.openModal.bind(null, "Sign Out")}/>
+          </IconMenu> :
+          <IconMenu
+            iconButtonElement={
+              <IconButton><MoreVertIcon /></IconButton>
+            }
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem primaryText="Sign in" href={this.props.signInURL} />
+            <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
+          </IconMenu>
+        }
+      />
     }
   }),
 
