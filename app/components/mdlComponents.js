@@ -127,6 +127,7 @@ const Components = {
 
   Header: React.createClass({
     render: function() {
+      var loggedInMenu = ["Profile", "About", "Sign Out"]
       return <AppBar
           title={this.props.title}
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
@@ -138,9 +139,9 @@ const Components = {
               targetOrigin={{horizontal: 'right', vertical: 'top'}}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
-              <MenuItem primaryText="Profile" onTouchTap={this.props.openModal}/>
-              <MenuItem primaryText="About" onTouchTap={this.props.openModal}/>
-              <MenuItem primaryText="Sign out" onTouchTap={this.props.openModal}/>
+              <MenuItem primaryText="Profile" onTouchTap={this.props.openModal.bind(null, "Profile")}/>
+              <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
+              <MenuItem primaryText="Sign Out" onTouchTap={this.props.openModal.bind(null, "Sign Out")}/>
             </IconMenu> :
             <IconMenu
               iconButtonElement={
@@ -150,7 +151,7 @@ const Components = {
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
               <MenuItem primaryText="Sign in" href={this.props.signIn} />
-              <MenuItem primaryText="About" onTouchTap={this.props.openModal}/>
+              <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
             </IconMenu>
           }
         />
@@ -175,13 +176,14 @@ Dialog: React.createClass({
     return (
       <div>
       <Dialog
-        title="Dialog With Actions"
+        title={this.props.currentDialog}
         actions={actions}
         modal={false}
+        contentClassName="modal"
         open={this.props.open}
         onRequestClose={this.props.handleClose}
       >
-        The actions in this window were passed in as an array of React objects.
+          {this.props.currentView}
       </Dialog>
     </div>
     )

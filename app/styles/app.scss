@@ -19,3 +19,24 @@ html, body {
     }
   }
 }
+
+.modal {
+  ul.profileInformation{
+    margin: auto;
+    width: 55%;
+    margin-top: 30px;
+    list-style: none;
+    padding:0;
+    li {
+      line-height: 30px;
+    }
+  }
+  .profilePicture {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .title {
+    text-align: center;
+  }
+}

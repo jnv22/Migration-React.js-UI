@@ -9,6 +9,7 @@ import Main from './views/main'
 
 injectTapEventPlugin();
 require('./styles/app.scss')
+require('./styles/media-query.scss')
 require ('./styles/font-awesome/css/font-awesome.css');
 
 import { Router, Route, Link, browserHistory} from 'react-router';

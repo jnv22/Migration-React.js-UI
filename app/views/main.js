@@ -33,9 +33,41 @@ var MapDisplay = React.createClass({
   }
 })
 
+var Dialog = React.createClass({
+  render: function() {
+    var fullName,email,img
+    if (this.props.user.profile) {
+      var user = this.props.user
+      var fullName = user.profile.fullName
+      var email = user.profile.email
+      var img = user.profile.picture
+    }
+
+    var Index = {
+      Profile: [
+        <h1 className="title">Profile</h1>,
+        <img className="profilePicture" src={img} />,
+        <ul className="profileInformation">
+          <li><b>Name:</b> {fullName}</li>
+          <li><b>Email:</b> {email}</li>
+        </ul>
+      ],
+      About: [
+        <h1 className="title">Welcome to Project Migration!</h1>,
+        <p>This is going to be such an awesome app!</p>
+      ]
+    }
+
+    var currentView = Index[this.props.currentView]
+    return <components.Dialog {...this.props} currentView={currentView}/>
+  }
+})
+
 var Header = React.createClass({
   render: function() {
-    return <components.Header  {...this.props}/>
+    console.log("HERE")
+    var loggedInMenu = ["Profile", "About", "Sign Out"]
+    return <components.Header {...this.props} loggedInMenu = {loggedInMenu} />
   }
 })
 
@@ -43,7 +75,8 @@ module.exports = React.createClass({
   getInitialState: function() {
       return {
         birds: [],
-        isSignedIn: '',
+        isSignedIn: false,
+        user: {},
         open: false,
         currentModalView: ''
       }
@@ -57,10 +90,17 @@ module.exports = React.createClass({
         })
       })
     api.checkUserLoggedIn()
-      .then((user) => {
+      .then(() => {
         this.setState({
           isSignedIn: true
         })
+        api.getUser()
+          .then((user) => {
+            console.log(user.data.result, "HERE")
+            this.setState({
+              user: user.data.result
+            })
+          })
       })
       .catch((err) => {
         this.setState({
@@ -69,9 +109,10 @@ module.exports = React.createClass({
       })
   },
 
-  openModal: function() {
+  openModal: function(modal) {
     this.setState({
-      open: true
+      open: true,
+      currentModalView: modal
     })
   },
 
@@ -86,7 +127,7 @@ module.exports = React.createClass({
     return (
       <div className="content">
         <Header title="Migration" signIn={signInURL} isSignedIn={this.state.isSignedIn} openModal={this.openModal}/>
-        <components.Dialog  handleClose={this.closeModal} open={this.state.open}/>
+        <Dialog currentView={this.state.currentModalView} user={this.state.user} handleClose={this.closeModal} open={this.state.open}/>
         <MapDisplay birds={this.state.birds}/>
       </div>
     )
