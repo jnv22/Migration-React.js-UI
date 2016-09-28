@@ -10,13 +10,13 @@ import AddNewBird from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-
-
-
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Drawer from 'material-ui/Drawer';
+
+
+
+
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 import {GridList, GridTile} from 'material-ui/GridList';
@@ -84,33 +84,6 @@ const styles = {
   },
 };
 
-const fruit = [
-  'Apple', 'Apricot', 'Avocado',
-  'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
-  'Boysenberry', 'Blood Orange',
-  'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
-  'Coconut', 'Cranberry', 'Clementine',
-  'Damson', 'Date', 'Dragonfruit', 'Durian',
-  'Elderberry',
-  'Feijoa', 'Fig',
-  'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
-  'Honeydew', 'Huckleberry',
-  'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
-  'Kiwi fruit', 'Kumquat',
-  'Lemon', 'Lime', 'Loquat', 'Lychee',
-  'Nectarine',
-  'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
-  'Olive', 'Orange',
-  'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
-  'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
-  'Quince',
-  'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
-  'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
-  'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
-  'Ugli fruit',
-  'Watermelon',
-];
-
 const Components = {
   AutoComplete: React.createClass({
     render: function() {
@@ -127,41 +100,41 @@ const Components = {
     }
   }),
 
-  Header: React.createClass({
-    render: function() {
-      return <AppBar
-        title={this.props.title}
-        iconElementLeft={
-          <IconButton
-          onTouchTap={this.props.openModal.bind(null, "Add")}
-          ><AddNewBird /></IconButton>
-        }
-        iconElementRight={this.props.signedIn ?
-          <IconMenu
-            iconButtonElement={
-              <IconButton><MoreVertIcon /></IconButton>
-            }
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
-            <MenuItem primaryText="Profile" onTouchTap={this.props.openModal.bind(null, "Profile")}/>
-            <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
-            <MenuItem primaryText="Sign Out" onTouchTap={this.props.openModal.bind(null, "Sign Out")}/>
-          </IconMenu> :
-          <IconMenu
-            iconButtonElement={
-              <IconButton><MoreVertIcon /></IconButton>
-            }
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
-            <MenuItem primaryText="Sign in" href={this.props.signInURL} />
-            <MenuItem primaryText="About" onTouchTap={this.props.openModal.bind(null, "About")}/>
-          </IconMenu>
-        }
-      />
-    }
-  }),
+Header: React.createClass({
+  render: function() {
+    return <AppBar
+      title={this.props.title}
+      iconElementLeft={
+        <IconButton
+        onTouchTap={this.props.toggleDrawer.bind(null, "Add")}
+        ><AddNewBird /></IconButton>
+      }
+      iconElementRight={this.props.signedIn ?
+        <IconMenu
+          iconButtonElement={
+            <IconButton><MoreVertIcon /></IconButton>
+          }
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        >
+          <MenuItem primaryText="Profile" onTouchTap={this.props.toggleModal.bind(null, "Profile")}/>
+          <MenuItem primaryText="About" onTouchTap={this.props.toggleModal.bind(null, "About")}/>
+          <MenuItem primaryText="Sign Out" onTouchTap={this.props.toggleModal.bind(null, "Sign Out")}/>
+        </IconMenu> :
+        <IconMenu
+          iconButtonElement={
+            <IconButton><MoreVertIcon /></IconButton>
+          }
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        >
+          <MenuItem primaryText="Sign in" href={this.props.signInURL} />
+          <MenuItem primaryText="About" onTouchTap={this.props.toggleModal.bind(null, "About")}/>
+        </IconMenu>
+      }
+    />
+  }
+}),
 
 Dialog: React.createClass({
   render: function() {
@@ -169,13 +142,13 @@ Dialog: React.createClass({
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.props.handleClose}
+        onTouchTap={this.props.toggle}
       />,
       <FlatButton
         label="ok"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.handleClose}
+        onTouchTap={this.props.toggle}
       />,
     ];
     return (
@@ -186,7 +159,7 @@ Dialog: React.createClass({
         modal={false}
         contentClassName="modal"
         open={this.props.open}
-        onRequestClose={this.props.handleClose}
+        onRequestClose={this.props.toggle}
       >
           {this.props.currentView}
       </Dialog>
@@ -194,6 +167,31 @@ Dialog: React.createClass({
     )
   }
 }),
+
+Drawer: React.createClass({
+
+  render: function() {
+    return (
+        <Drawer open={this.props.open}>
+          <AppBar />
+          {this.props.currentView}
+        </Drawer>
+    );
+  }
+}),
+
+  InputField: React.createClass({
+    render: function() {
+      return (
+        <TextField
+          type={this.props.type}
+          id={this.props.refs}
+          onChange={this.props.handleChange}
+          floatingLabelText={this.props.label}>
+        </TextField>
+      )
+    }
+  }),
 
 
 
@@ -203,7 +201,6 @@ Dialog: React.createClass({
       window.open(tile.url)
     },
     render: function() {
-      console.log(this.props.tile.multimedia.length)
       return (
         <GridTile
           onClick={this.selectNewsArticle.bind(this, this.props.tile)}
@@ -273,36 +270,7 @@ Dialog: React.createClass({
     }
   }),
 
-  Drawer: React.createClass({
-    menuViews: [
-      {title: "Home", img:"home", destination: "en-us"},
-      {title: "Airfare Lookup", img:"plane", destination: "book-a-flight"},
-      {title: "Learn Chinese", img:"book", destination: "learn"},
-      {title: "Articles", img:"commenting", destination: "err"},
-      {title: "Classifieds", img:"newspaper-o", clickEvent: "err"}
-    ],
 
-    onClick: function(destination) {
-      browserHistory.push(destination)
-    },
-
-    render: function() {
-      var menuItems =  this.menuViews.map((item) => {
-        console.log(this.props.showMenu, "menu showing")
-        var img = "fa fa-" + item.img;
-        var destination = item.destination
-        return (
-          <MenuItem primaryText={item.title} onTouchTap={this.onClick.bind(this, item.destination)} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
-        )
-      });
-      return (
-          <Drawer open={this.props.showMenu}>
-            <AppBar onLeftIconButtonTouchTap={this.props.onClick}/>
-            {menuItems}
-          </Drawer>
-      );
-    }
-  }),
 
 
   DatePicker: React.createClass({
@@ -328,19 +296,6 @@ Dialog: React.createClass({
           style={styles.button}>
         </RaisedButton>
         )
-    }
-  }),
-
-  InputField: React.createClass({
-    render: function() {
-      return (
-        <TextField
-          hintText=""
-          id={this.props.id}
-          onChange={this.props.onChange}
-          floatingLabelText={this.props.label}>
-        </TextField>
-      )
     }
   })
 }

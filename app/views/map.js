@@ -6,7 +6,7 @@ import moment from "moment"
 module.exports = function(birds) {
   //set to center of USA
   const position = [39.8282, -98.5795];
-  
+
   return (
     <Map center={position} zoom={4}>
     <TileLayer

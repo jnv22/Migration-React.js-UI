@@ -5,6 +5,7 @@ import Map from "./map"
 import components from "../components/mdlComponents"
 import Header from "../components/header"
 import Dialog from "../components/dialog"
+import Drawer from "../components/drawer"
 
 
 module.exports = React.createClass({
@@ -13,23 +14,25 @@ module.exports = React.createClass({
         birds: [],
         signedIn: false,
         user: {},
-        open: false,
+        modalOpen: false,
+        drawerOpen: false,
         currentModalView: '',
         locations: [],
-        selectedLocation: ''
+        setBirdLocation: '',
+        setBirdSpecies: '',
+        setBirdQty: ''
       }
   },
 
   componentDidMount: function() {
     api.birds()
-      .then((totalBirds) => {
+      .then((bird) => {
         this.setState({
-          birds: totalBirds.data.result
+          birds: bird.data.result
         })
       })
     api.checkUserLoggedIn()
       .then(() => {
-        console.log("SIGNINED IN")
         this.setState({
           signedIn: true
         })
@@ -47,30 +50,60 @@ module.exports = React.createClass({
       })
   },
 
-  openModal: function(modal) {
+  toggleModal: function(modal) {
     this.setState({
-      open: true,
+      modalOpen: !this.state.modalOpen,
       currentModalView: modal
     })
   },
 
-  closeModal: function() {
+  toggleDrawer: function() {
     this.setState({
-      open: false
-    });
+      drawerOpen: !this.state.drawerOpen
+    })
   },
 
   updateLocation: function(location) {
     api.getLocation(location)
       .then((city) => {
-        console.log(city.data.result)
         this.setState({
           locations: city.data.result
         })
       })
   },
 
+  setLocation: function(location) {
+    this.setState({
+      setBirdLocation: location
+    })
+  },
+
+  saveBird: function(e) {
+    e.preventDefault()
+    api.saveBird({
+      ts: Date.now(),
+      species: this.state.setBirdSpecies,
+      quantity: +this.state.setBirdQty,
+      location: this.state.setBirdLocation
+    }).then((bird) => {
+      var birdModel = this.state.birds
+      this.setState({
+        birds: this.state.birds.concat([bird.data.result]),
+        setLocation: '',
+        setBirdSpecies: '',
+        setBirdQty: ''
+      })
+    })
+  },
+
+  handleChange: function(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  },
+
   render: function() {
+    console.log(this.state.birds)
     let signInURL = env.URL_ROOT + '/auth/facebook'
     var displayMap = Map(this.state.birds)
     return (
@@ -79,15 +112,26 @@ module.exports = React.createClass({
           title="Migration"
           signInURL={signInURL}
           signedIn={this.state.signedIn}
-          openModal={this.openModal}
+          toggleModal={this.toggleModal}
+          toggleDrawer={this.toggleDrawer}
          />
         <Dialog
-          updateLocation={this.updateLocation}
-          locations={this.state.locations}
+          toggle={this.toggleModal}
           currentView={this.state.currentModalView}
           user={this.state.user}
-          handleClose={this.closeModal}
-          open={this.state.open}
+          open={this.state.modalOpen}
+        />
+        <Drawer
+          toggle={this.toggleDrawer}
+          updateLocation={this.updateLocation}
+          handleChange={this.handleChange}
+          locations={this.state.locations}
+          setBirdSpecies={this.state.setBirdSpecies}
+          setBirdQty={this.state.setBirdQty}
+          setBirdLocation={this.state.setBirdLocation}
+          setLocation={this.setLocation}
+          open={this.state.drawerOpen}
+          saveBird={this.saveBird}
         />
         {displayMap}
       </div>

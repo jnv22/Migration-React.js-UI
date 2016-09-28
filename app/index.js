@@ -14,6 +14,8 @@ require ('./styles/font-awesome/css/font-awesome.css');
 
 import { Router, Route, Link, browserHistory} from 'react-router';
 
+if (typeof window !== 'undefined') window.React = React
+
 const NoMatch = React.createClass({
   render: function() {
     return (

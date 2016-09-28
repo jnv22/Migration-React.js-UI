@@ -29,5 +29,13 @@ module.exports = {
     url: env.URL_ROOT + '/location/' + city,
     headers: {'Content-Type': 'application/json'}
     })
+  },
+  saveBird: function(data) {
+    return axios({
+      method: 'post',
+      url: env.URL_ROOT + '/birds',
+      data: data,
+      headers: {'Content-Type': 'application/json'}
+    })
   }
 }
