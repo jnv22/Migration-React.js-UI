@@ -20,7 +20,8 @@ module.exports = React.createClass({
         locations: [],
         setBirdLocation: '',
         setBirdSpecies: '',
-        setBirdQty: ''
+        setBirdQty: undefined,
+        setBirdDate: ''
       }
   },
 
@@ -78,17 +79,25 @@ module.exports = React.createClass({
     })
   },
 
+  setDate: function(e, date) {
+    var ts = new Date(date).getTime()
+    console.log(ts)
+    this.setState({
+      setBirdDate: ts
+    })
+  },
+
   saveBird: function(e) {
     e.preventDefault()
     api.saveBird({
-      ts: Date.now(),
+      ts: this.state.setBirdDate,
       species: this.state.setBirdSpecies,
       quantity: +this.state.setBirdQty,
       location: this.state.setBirdLocation
     }).then((bird) => {
       var birdModel = this.state.birds
       this.setState({
-        birds: this.state.birds.concat([bird.data.result]),
+        birds: [...this.state.birds, ...[bird.data.result]],
         setLocation: '',
         setBirdSpecies: '',
         setBirdQty: ''
@@ -130,6 +139,7 @@ module.exports = React.createClass({
           setBirdQty={this.state.setBirdQty}
           setBirdLocation={this.state.setBirdLocation}
           setLocation={this.setLocation}
+          setDate={this.setDate}
           open={this.state.drawerOpen}
           saveBird={this.saveBird}
         />

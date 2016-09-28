@@ -3,12 +3,14 @@ import components from "./mdlComponents"
 import FlatButton from 'material-ui/FlatButton';
 
 function DrawerTemplate(location, locationSelected) {
+  console.log(this.props.setBirdLocation.length, this.props.setBirdSpecies.length, this.props.setBirdQty)
   return [
     <h1 className="title">Add Bird</h1>,
     <form ref="addBirdForm" onSubmit={this.props.saveBird}>
       <components.AutoComplete {...this.props} location={location} locationSelected={locationSelected}/>
       <components.InputField {...this.props} refs="setBirdSpecies" label="Bird Species" type="text"/>
       <components.InputField {...this.props} refs="setBirdQty" label="Qty" type="number"/>
+      <components.DatePicker onChange={this.props.setDate} defaultDate={Date.now()} />
       <FlatButton
         label="Cancel"
         primary={true}

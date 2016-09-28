@@ -19,7 +19,7 @@ module.exports = function(birds) {
         <span>
           <b>Species: </b>{bird.species}<br/>
           <b>Quantity: </b>{bird.quantity}<br/>
-          <b>Time: </b>{moment(bird.ts).format("dddd, MMMM Do YYYY, h:mm a")}<br/>
+          <b>Time: </b>{moment(bird.ts).format("dddd, MMMM Do YYYY")}<br/>
         </span>
       </Popup>
     </Marker>

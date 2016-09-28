@@ -180,6 +180,19 @@ Drawer: React.createClass({
   }
 }),
 
+  DatePicker: React.createClass({
+    render: function() {
+      const maxDate = new Date();
+      return (
+        <DatePicker
+          hintText="Select Date"
+          maxDate={maxDate}
+          autoOk={true}
+          onChange={this.props.onChange}/>
+      )
+    }
+  }),
+
   InputField: React.createClass({
     render: function() {
       return (
@@ -266,19 +279,6 @@ Drawer: React.createClass({
           zDepth={2}
           children={this.props.children}
           />
-      )
-    }
-  }),
-
-
-
-
-  DatePicker: React.createClass({
-    render: function() {
-      return (
-        <DatePicker
-          defaultDate={this.props.date}
-          onChange={this.props.onChange}/>
       )
     }
   }),
