@@ -10,7 +10,7 @@ function DrawerTemplate(location, locationSelected) {
       <components.AutoComplete {...this.props} location={location} locationSelected={locationSelected}/>
       <components.InputField {...this.props} refs="setBirdSpecies" label="Bird Species" type="text"/>
       <components.InputField {...this.props} refs="setBirdQty" label="Qty" type="number"/>
-      <components.DatePicker onChange={this.props.setDate} defaultDate={Date.now()} />
+      <components.DatePicker onChange={this.props.setDate}  defaultDate={Date.now()} />
       <FlatButton
         label="Cancel"
         primary={true}
@@ -30,12 +30,12 @@ function DrawerTemplate(location, locationSelected) {
 }
 
 
-function DrawerSetup(currentView) {
+function DrawerSetup() {
   // In-place hack for React material design, AutoComplete, 'datasource'.  Unfortunately,
   // this component requires data to be in an array.  We need to have an object, for us to reference the
   // db_id.  According to issue #2735, this will be fixed sometime in the near future
   var location = [];
-
+  console.log(this.props)
   this.props.locations.map(function(locale) {
     location.push(locale.city + " " + locale.state + " " + locale.zipcode)
   })

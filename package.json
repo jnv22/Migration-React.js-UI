@@ -39,6 +39,9 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-leaflet": "^0.12.2",
+    "react-leaflet-cluster-layer": "0.0.3",
+    "react-leaflet-control": "^1.1.2",
+    "react-leaflet-geojson-cluster": "^0.1.8",
     "react-router": "^2.4.1",
     "react-tap-event-plugin": "^1.0.0"
   }

@@ -92,6 +92,7 @@ const Components = {
           floatingLabelText="Type Location"
           onUpdateInput={this.props.updateLocation}
           filter={AutoComplete.fuzzyFilter}
+          id={this.props.id}
           dataSource={this.props.location}
           maxSearchResults={10}
           onNewRequest={this.props.locationSelected}
@@ -106,7 +107,7 @@ Header: React.createClass({
       title={this.props.title}
       iconElementLeft={
         <IconButton
-        onTouchTap={this.props.toggleDrawer.bind(null, "Add")}
+        onTouchTap={this.props.toggleModal.bind(null, "Add")}
         ><AddNewBird /></IconButton>
       }
       iconElementRight={this.props.signedIn ?
@@ -138,24 +139,14 @@ Header: React.createClass({
 
 Dialog: React.createClass({
   render: function() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.props.toggle}
-      />,
-      <FlatButton
-        label="ok"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.props.toggle}
-      />,
-    ];
+    console.log(this.props.currentView)
+
+
     return (
       <div>
       <Dialog
         title={this.props.currentDialog}
-        actions={actions}
+        actions={this.props.actions}
         modal={false}
         contentClassName="modal"
         open={this.props.open}
@@ -172,8 +163,8 @@ Drawer: React.createClass({
 
   render: function() {
     return (
-        <Drawer open={this.props.open}>
-          <AppBar />
+        <Drawer open={this.props.open} className="drawer">
+          <AppBar iconElementLeft={<IconButton></IconButton>}/>
           {this.props.currentView}
         </Drawer>
     );
@@ -198,7 +189,7 @@ Drawer: React.createClass({
       return (
         <TextField
           type={this.props.type}
-          id={this.props.refs}
+          id={this.props.id}
           onChange={this.props.handleChange}
           floatingLabelText={this.props.label}>
         </TextField>

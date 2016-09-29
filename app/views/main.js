@@ -39,8 +39,9 @@ module.exports = React.createClass({
         })
         api.getUser()
           .then((user) => {
+            console.log(user, "WHY YOU SHOW??")
             this.setState({
-              user: user.data.result
+              user: user.data
             })
           })
       })
@@ -50,6 +51,7 @@ module.exports = React.createClass({
         })
       })
   },
+
 
   toggleModal: function(modal) {
     this.setState({
@@ -81,7 +83,6 @@ module.exports = React.createClass({
 
   setDate: function(e, date) {
     var ts = new Date(date).getTime()
-    console.log(ts)
     this.setState({
       setBirdDate: ts
     })
@@ -94,10 +95,11 @@ module.exports = React.createClass({
       species: this.state.setBirdSpecies,
       quantity: +this.state.setBirdQty,
       location: this.state.setBirdLocation
-    }).then((bird) => {
+    }).then((birds) => {
+      this.toggleModal()
       var birdModel = this.state.birds
       this.setState({
-        birds: [...this.state.birds, ...[bird.data.result]],
+        birds: [...this.state.birds, ...[birds.data.result.bird]],
         setLocation: '',
         setBirdSpecies: '',
         setBirdQty: ''
@@ -112,9 +114,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.birds)
+    console.log(this.state.locations)
     let signInURL = env.URL_ROOT + '/auth/facebook'
-    var displayMap = Map(this.state.birds)
     return (
       <div className="content">
         <Header
@@ -129,9 +130,6 @@ module.exports = React.createClass({
           currentView={this.state.currentModalView}
           user={this.state.user}
           open={this.state.modalOpen}
-        />
-        <Drawer
-          toggle={this.toggleDrawer}
           updateLocation={this.updateLocation}
           handleChange={this.handleChange}
           locations={this.state.locations}
@@ -140,10 +138,10 @@ module.exports = React.createClass({
           setBirdLocation={this.state.setBirdLocation}
           setLocation={this.setLocation}
           setDate={this.setDate}
-          open={this.state.drawerOpen}
           saveBird={this.saveBird}
+
         />
-        {displayMap}
+        <Map birds={this.state.birds} userBirds={this.state.user.birds}/>
       </div>
     )
   }

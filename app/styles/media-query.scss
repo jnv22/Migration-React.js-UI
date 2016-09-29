@@ -1,12 +1,13 @@
-@media screen and (min-width: 630px) {
+@media screen and (min-width: 690px) {
   .modal {
     ul.profileInformation{
       float: right;
-      list-style: none;
+      margin-right: 40px;
       width: auto;
     }
     .profilePicture {
       float: left;
+      margin-left: 40px;
     }
   }
 }
