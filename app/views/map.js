@@ -28,7 +28,6 @@ module.exports = React.createClass({
      return Math.round(coordinate * 1000)/1000 + (Math.random()*.001)
    }
 
-   console.log(this.props)
    var userBirds = this.props.userBirds || []
    var allBirds = this.props.birds || []
 

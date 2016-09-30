@@ -5,13 +5,12 @@ import Map from "./map"
 import components from "../components/mdlComponents"
 import Header from "../components/header"
 import Dialog from "../components/dialog"
-import Drawer from "../components/drawer"
-
 
 module.exports = React.createClass({
   getInitialState: function() {
       return {
         birds: [],
+        userBirds: [],
         signedIn: false,
         user: {},
         modalOpen: false,
@@ -39,9 +38,9 @@ module.exports = React.createClass({
         })
         api.getUser()
           .then((user) => {
-            console.log(user, "WHY YOU SHOW??")
             this.setState({
-              user: user.data
+              user: user.data,
+              userBirds: user.data.birds
             })
           })
       })
@@ -51,7 +50,6 @@ module.exports = React.createClass({
         })
       })
   },
-
 
   toggleModal: function(modal) {
     this.setState({
@@ -100,6 +98,7 @@ module.exports = React.createClass({
       var birdModel = this.state.birds
       this.setState({
         birds: [...this.state.birds, ...[birds.data.result.bird]],
+        userBirds: [...this.state.userBirds, ...[birds.data.result.user]],
         setLocation: '',
         setBirdSpecies: '',
         setBirdQty: ''
@@ -113,9 +112,19 @@ module.exports = React.createClass({
     })
   },
 
+  signOut: function() {
+    api.signOut()
+      .then(() => {
+        this.setState({
+          signedIn: false,
+          userBirds: [],
+          user: {}
+        })
+      })
+  },
+
   render: function() {
-    console.log(this.state.locations)
-    let signInURL = env.URL_ROOT + '/auth/facebook'
+    let signInURL = env.URL_ROOT + '/api/auth/facebook'
     return (
       <div className="content">
         <Header
@@ -124,6 +133,7 @@ module.exports = React.createClass({
           signedIn={this.state.signedIn}
           toggleModal={this.toggleModal}
           toggleDrawer={this.toggleDrawer}
+          signOut={this.signOut}
          />
         <Dialog
           toggle={this.toggleModal}
@@ -139,9 +149,8 @@ module.exports = React.createClass({
           setLocation={this.setLocation}
           setDate={this.setDate}
           saveBird={this.saveBird}
-
         />
-        <Map birds={this.state.birds} userBirds={this.state.user.birds}/>
+        <Map birds={this.state.birds} userBirds={this.state.userBirds}/>
       </div>
     )
   }

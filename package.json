@@ -4,6 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build": "npm run clean && npm run build:webpack",
+    "clean": "rimraf dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

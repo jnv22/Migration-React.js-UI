@@ -1,5 +1,7 @@
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var webpack = require('webpack');
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin ({
   template: path.resolve(__dirname, 'app/index.html'),
@@ -11,6 +13,7 @@ module.exports =  {
   entry: [
     path.resolve(__dirname,'app/index.js')
   ],
+  devtool: 'eval',
   module: {
     loaders: [
       {test: /\.jsx?$/, include: path.resolve(__dirname, 'app'), loader: "babel"},
@@ -29,7 +32,12 @@ module.exports =  {
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    HTMLWebpackPluginConfig
+    HTMLWebpackPluginConfig,
+    new webpack.DefinePlugin({
+     'process.env': {
+       'NODE_ENV': JSON.stringify('production')
+     }
+   })
   ],
   devServer: {
     historyApiFallback: true,
