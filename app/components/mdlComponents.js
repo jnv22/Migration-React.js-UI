@@ -71,9 +71,6 @@ Header: React.createClass({
 
 Dialog: React.createClass({
   render: function() {
-    console.log(this.props.children, "HEREWEEE")
-
-
     return (
       <div>
       <Dialog
@@ -92,7 +89,6 @@ Dialog: React.createClass({
 }),
 
 Drawer: React.createClass({
-
   render: function() {
     return (
         <Drawer open={this.props.open} className="drawer">

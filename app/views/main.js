@@ -54,7 +54,11 @@ module.exports = React.createClass({
   toggleModal: function(modal) {
     this.setState({
       modalOpen: !this.state.modalOpen,
-      currentModalView: modal
+      currentModalView: modal,
+      setBirdLocation: '',
+      setBirdSpecies: '',
+      setBirdQty: undefined,
+      setBirdDate: ''
     })
   },
 
@@ -95,10 +99,9 @@ module.exports = React.createClass({
       location: this.state.setBirdLocation
     }).then((birds) => {
       this.toggleModal()
-      var birdModel = this.state.birds
       this.setState({
         birds: [...this.state.birds, ...[birds.data.result.bird]],
-        userBirds: [...this.state.userBirds, ...[birds.data.result.user]],
+        userBirds: Object.keys(birds.data.result.user).length > 0 ? [...this.state.userBirds, ...[birds.data.result.user]] : [],
         setLocation: '',
         setBirdSpecies: '',
         setBirdQty: ''
@@ -145,6 +148,7 @@ module.exports = React.createClass({
           locations={this.state.locations}
           setBirdSpecies={this.state.setBirdSpecies}
           setBirdQty={this.state.setBirdQty}
+          setBirdDate={this.state.setBirdDate}
           setBirdLocation={this.state.setBirdLocation}
           setLocation={this.setLocation}
           setDate={this.setDate}

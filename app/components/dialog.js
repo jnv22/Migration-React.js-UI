@@ -19,7 +19,7 @@ function DialogTemplate() {
           label="Save"
           primary={true}
           type="submit"
-          disabled={this.props.setBirdLocation.length === 0|| this.props.setBirdSpecies.length == 0 || this.props.setBirdQty == 0 }
+          disabled={this.props.setBirdLocation.length === 0|| this.props.setBirdSpecies.length == 0 || this.props.setBirdQty == 0 || this.props.setBirdDate.length === 0}
           keyboardFocused={true}
           onTouchTap={this.props.saveBird} />)
       return <Form {...this.props} />
