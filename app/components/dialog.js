@@ -26,6 +26,7 @@ function DialogTemplate() {
 
     case 'Profile':
     case 'About':
+    case 'SignOut':
       actions.push( <FlatButton
           label="ok"
           primary={true}

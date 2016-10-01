@@ -4,7 +4,7 @@ import Api from "../api"
 
 var Header = React.createClass({
   render: function() {
-    return <components.Header {...this.props}  />
+    return <components.Header {...this.props} title="Migration Track"/>
   }
 })
 

@@ -52,7 +52,6 @@ Header: React.createClass({
         >
           <MenuItem primaryText="Profile" onTouchTap={this.props.toggleModal.bind(null, "Profile")}/>
           <MenuItem primaryText="About" onTouchTap={this.props.toggleModal.bind(null, "About")}/>
-          <MenuItem primaryText="Sign Out" onTouchTap={this.props.signOut}/>
         </IconMenu> :
         <IconMenu
           iconButtonElement={
@@ -99,17 +98,17 @@ Drawer: React.createClass({
   }
 }),
 
-  DatePicker: React.createClass({
-    render: function() {
-      const maxDate = new Date();
-      return (
-        <DatePicker
-          hintText="Select Date"
-          maxDate={maxDate}
-          autoOk={true}
-          onChange={this.props.onChange}/>
-      )
-    }
+DatePicker: React.createClass({
+  render: function() {
+    const maxDate = new Date();
+    return (
+      <DatePicker
+        hintText="Select Date"
+        maxDate={maxDate}
+        autoOk={true}
+        onChange={this.props.onChange}/>
+    )
+  }
   }),
 
   InputField: React.createClass({

@@ -52,6 +52,8 @@ module.exports = React.createClass({
   },
 
   toggleModal: function(modal) {
+    modal === 'SignOut' ? this.signOut() : ""
+
     this.setState({
       modalOpen: !this.state.modalOpen,
       currentModalView: modal,
@@ -131,7 +133,6 @@ module.exports = React.createClass({
     return (
       <div className="content">
         <Header
-          title="Migration"
           signInURL={signInURL}
           signedIn={this.state.signedIn}
           toggleModal={this.toggleModal}
