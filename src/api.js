@@ -1,18 +1,17 @@
 import axios from "axios"
-import env from "./env"
 
 const api = {
   birds: function() {
     return axios({
     method: 'get',
-    url: env.URL_ROOT + '/birds',
+    url: process.env.REACT_APP_URL_ROOT + '/birds',
     headers: {'Content-Type': 'application/json'}
     })
   },
   checkUserLoggedIn: function() {
     return axios({
     method: 'head',
-    url: env.URL_ROOT + '/user',
+    url: process.env.REACT_APP_URL_ROOT + '/user',
     withCredentials: true,
     headers: {'Content-Type': 'application/json'}
     })
@@ -20,7 +19,7 @@ const api = {
   getUser: function() {
     return axios({
     method: 'get',
-    url: env.URL_ROOT + '/user',
+    url: process.env.REACT_APP_URL_ROOT + '/user',
     withCredentials: true,
     headers: {'Content-Type': 'application/json'}
     })
@@ -28,14 +27,14 @@ const api = {
   getLocation: function(city) {
     return axios({
     method: 'get',
-    url: env.URL_ROOT + '/location/' + city,
+    url: process.env.REACT_APP_URL_ROOT + '/location/' + city,
     headers: {'Content-Type': 'application/json'}
     })
   },
   saveBird: function(data) {
     return axios({
       method: 'post',
-      url: env.URL_ROOT + '/birds',
+      url: process.env.REACT_APP_URL_ROOT + '/birds',
       data: data,
       withCredentials: true,
       headers: {'Content-Type': 'application/json'}
@@ -44,7 +43,7 @@ const api = {
   signOut: function() {
     return axios({
     method: 'get',
-    url: env.URL_ROOT + '/logout',
+    url: process.env.REACT_APP_URL_ROOT + '/logout',
     headers: {'Content-Type': 'application/json'}
     })
   }

@@ -1,10 +1,8 @@
 import React, { Component } from "react"
 import api from "../api"
-import env from "../env"
-import Map from "./map"
-import components from "../components/mdlComponents"
+import Map from "../components/map"
 import Header from "../components/header"
-import Dialog from "../components/dialog"
+import Dialog from "../components/Dialog"
 
 import styles from '../styles/app.css'
 
@@ -132,11 +130,9 @@ class main extends Component {
   }
 
   render() {
-    let signInURL = env.URL_ROOT + '/api/auth/facebook'
     return (
       <div className={styles.content}>
         <Header
-          signInURL={signInURL}
           signedIn={this.state.signedIn}
           toggleModal={this.toggleModal}
           toggleDrawer={this.toggleDrawer}

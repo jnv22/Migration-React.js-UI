@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import components from "./mdlComponents"
+import components from "../mdlComponents"
 import FlatButton from 'material-ui/FlatButton';
-import Form from "./form"
-import DialogStore from "./dialogStore"
+import Form from "../form"
+import DialogFactory from "./dialogFactory"
 
 var actions;
 
@@ -32,7 +32,7 @@ function DialogTemplate() {
           primary={true}
           keyboardFocused={true}
           onTouchTap={this.props.toggle} />)
-      return DialogStore[currentView].call(this)
+      return DialogFactory[currentView].call(this)
 
     default:
       return ''
