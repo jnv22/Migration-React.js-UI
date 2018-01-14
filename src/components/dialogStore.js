@@ -1,4 +1,7 @@
-module.exports =  {
+import React, { Component } from "react"
+
+
+const dialogStore =  {
   Profile: function() {
     var profile = this.props.user.profile
     var email = profile.email !== null ? <li><b>Email:</b> {profile.email}</li> : ""
@@ -26,3 +29,5 @@ module.exports =  {
     return <h1 className="title">Successfully Logged Out!</h1>
   }
 }
+
+export default dialogStore;

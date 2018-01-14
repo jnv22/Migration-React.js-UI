@@ -1,9 +1,11 @@
 import { Map, Marker, Popup, TileLayer, LayersControl, FeatureGroup, Circle, LayerGroup } from 'react-leaflet'
-import React from "react"
+import React, { Component } from "react"
 import moment from "moment"
 
-module.exports = React.createClass({
-  render: function() {
+import styles from '../styles/app.css'
+
+class RenderedMap extends Component {
+  render() {
 
    //set to center of USA
    const position = [39.8282, -98.5795];
@@ -32,7 +34,7 @@ module.exports = React.createClass({
    var allBirds = this.props.birds || []
 
     return (
-      <Map center={position} zoom={4}>
+      <Map className={styles.leafletContainer} center={position} zoom={4}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -52,4 +54,6 @@ module.exports = React.createClass({
       </Map>
     )
   }
-})
+}
+
+export default RenderedMap;

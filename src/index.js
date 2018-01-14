@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import { Router, Route, browserHistory} from 'react-router';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -7,20 +8,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Main from './views/main'
 
 injectTapEventPlugin();
-require('./styles/app.scss')
 require('./styles/media-query.scss')
 
-import { Router, Route, browserHistory} from 'react-router';
 
 if (typeof window !== 'undefined') window.React = React
 
-const NoMatch = React.createClass({
-  render: function() {
+class NoMatch extends Component {
+  render() {
     return (
       <h4>Error 404</h4>
     )
   }
-});
+};
 
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -35,5 +34,5 @@ const App = () => (
 
 ReactDOM.render(
   <App />,
-  document.getElementById('main')
+  document.getElementById('root')
 );

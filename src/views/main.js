@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import api from "../api"
 import env from "../env"
 import Map from "./map"
@@ -6,25 +6,28 @@ import components from "../components/mdlComponents"
 import Header from "../components/header"
 import Dialog from "../components/dialog"
 
-module.exports = React.createClass({
-  getInitialState: function() {
-      return {
-        birds: [],
-        userBirds: [],
-        signedIn: false,
-        user: {},
-        modalOpen: false,
-        drawerOpen: false,
-        currentModalView: '',
-        locations: [],
-        setBirdLocation: '',
-        setBirdSpecies: '',
-        setBirdQty: undefined,
-        setBirdDate: ''
-      }
-  },
+import styles from '../styles/app.css'
 
-  componentDidMount: function() {
+class main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      birds: [],
+      userBirds: [],
+      signedIn: false,
+      user: {},
+      modalOpen: false,
+      drawerOpen: false,
+      currentModalView: '',
+      locations: [],
+      setBirdLocation: '',
+      setBirdSpecies: '',
+      setBirdQty: undefined,
+      setBirdDate: ''
+    };
+  }
+
+  componentDidMount() {
     api.birds()
       .then((bird) => {
         this.setState({
@@ -49,9 +52,9 @@ module.exports = React.createClass({
           signedIn: false
         })
       })
-  },
+  }
 
-  toggleModal: function(modal) {
+  toggleModal = (modal) => {
     modal === 'SignOut' ? this.signOut() : ""
 
     this.setState({
@@ -62,37 +65,37 @@ module.exports = React.createClass({
       setBirdQty: undefined,
       setBirdDate: ''
     })
-  },
+  }
 
-  toggleDrawer: function() {
+  toggleDrawer = () => {
     this.setState({
       drawerOpen: !this.state.drawerOpen
     })
-  },
+  }
 
-  updateLocation: function(location) {
+  updateLocation = (location) => {
     api.getLocation(location)
       .then((city) => {
         this.setState({
           locations: city.data.result
         })
       })
-  },
+  }
 
-  setLocation: function(location) {
+  setLocation = (location) => {
     this.setState({
       setBirdLocation: location
     })
-  },
+  }
 
-  setDate: function(e, date) {
+  setDate = (e, date) => {
     var ts = new Date(date).getTime()
     this.setState({
       setBirdDate: ts
     })
-  },
+  }
 
-  saveBird: function(e) {
+  saveBird = (e) => {
     e.preventDefault()
     api.saveBird({
       ts: this.state.setBirdDate,
@@ -109,15 +112,15 @@ module.exports = React.createClass({
         setBirdQty: ''
       })
     })
-  },
+  }
 
-  handleChange: function(e) {
+  handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
-  },
+  }
 
-  signOut: function() {
+  signOut = () => {
     api.signOut()
       .then(() => {
         this.setState({
@@ -126,12 +129,12 @@ module.exports = React.createClass({
           user: {}
         })
       })
-  },
+  }
 
-  render: function() {
+  render() {
     let signInURL = env.URL_ROOT + '/api/auth/facebook'
     return (
-      <div className="content">
+      <div className={styles.content}>
         <Header
           signInURL={signInURL}
           signedIn={this.state.signedIn}
@@ -159,4 +162,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+};
+
+export default main;

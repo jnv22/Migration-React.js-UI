@@ -1,8 +1,8 @@
-import React from "react"
+import React, { Component } from "react"
 import components from "./mdlComponents"
 import FlatButton from 'material-ui/FlatButton';
 import Form from "./form"
-import DialogStore from "./DialogStore"
+import DialogStore from "./dialogStore"
 
 var actions;
 
@@ -39,11 +39,11 @@ function DialogTemplate() {
   }
 }
 
-var Dialog = React.createClass({
-  render: function() {
+class Dialog extends Component {
+  render() {
     var currentView = DialogTemplate.call(this)
     return <components.Dialog {...this.props} actions={actions}> {currentView} </components.Dialog>
   }
-})
+}
 
-module.exports = Dialog
+export default Dialog;

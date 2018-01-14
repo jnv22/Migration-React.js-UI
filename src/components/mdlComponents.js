@@ -17,32 +17,29 @@ import Drawer from 'material-ui/Drawer';
 
 
 const Components = {
-  AutoComplete: React.createClass({
-    render: function() {
+  AutoComplete: (props) => {
       return (
         <AutoComplete
           floatingLabelText="Type Location"
-          onUpdateInput={this.props.updateLocation}
+          onUpdateInput={props.updateLocation}
           filter={AutoComplete.fuzzyFilter}
-          id={this.props.id}
-          dataSource={this.props.location}
+          id={props.id}
+          dataSource={props.location}
           maxSearchResults={10}
-          onNewRequest={this.props.locationSelected}
+          onNewRequest={props.locationSelected}
         />
       )
-    }
-  }),
+  },
 
-Header: React.createClass({
-  render: function() {
+Header: (props) => {
     return <AppBar
-      title={this.props.title}
+      title={props.title}
       iconElementLeft={
         <IconButton
-        onTouchTap={this.props.toggleModal.bind(null, "Add")}
+        onTouchTap={props.toggleModal.bind(null, "Add")}
         ><AddNewBird /></IconButton>
       }
-      iconElementRight={this.props.signedIn ?
+      iconElementRight={props.signedIn ?
         <IconMenu
           iconButtonElement={
             <IconButton><MoreVertIcon /></IconButton>
@@ -50,8 +47,8 @@ Header: React.createClass({
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         >
-          <MenuItem primaryText="Profile" onTouchTap={this.props.toggleModal.bind(null, "Profile")}/>
-          <MenuItem primaryText="About" onTouchTap={this.props.toggleModal.bind(null, "About")}/>
+          <MenuItem primaryText="Profile" onTouchTap={props.toggleModal.bind(null, "Profile")}/>
+          <MenuItem primaryText="About" onTouchTap={props.toggleModal.bind(null, "About")}/>
         </IconMenu> :
         <IconMenu
           iconButtonElement={
@@ -60,68 +57,59 @@ Header: React.createClass({
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         >
-          <MenuItem primaryText="Sign in" href={this.props.signInURL} />
-          <MenuItem primaryText="About" onTouchTap={this.props.toggleModal.bind(null, "About")}/>
+          <MenuItem primaryText="Sign in" href={props.signInURL} />
+          <MenuItem primaryText="About" onTouchTap={props.toggleModal.bind(null, "About")}/>
         </IconMenu>
       }
     />
-  }
-}),
+},
 
-Dialog: React.createClass({
-  render: function() {
+Dialog: (props) => {
     return (
       <div>
       <Dialog
-        title={this.props.currentDialog}
-        actions={this.props.actions}
+        title={props.currentDialog}
+        actions={props.actions}
         modal={false}
         contentClassName="modal"
-        open={this.props.open}
-        onRequestClose={this.props.toggle}
+        open={props.open}
+        onRequestClose={props.toggle}
       >
-          {this.props.children}
+          {props.children}
       </Dialog>
     </div>
     )
-  }
-}),
+},
 
-Drawer: React.createClass({
-  render: function() {
+Drawer: (props) => {
     return (
-        <Drawer open={this.props.open} className="drawer">
+        <Drawer open={props.open} className="drawer">
           <AppBar iconElementLeft={<IconButton></IconButton>}/>
-          {this.props.currentView}
+          {props.currentView}
         </Drawer>
     );
-  }
-}),
+},
 
-DatePicker: React.createClass({
-  render: function() {
+DatePicker: (props) => {
     const maxDate = new Date();
     return (
       <DatePicker
         hintText="Select Date"
         maxDate={maxDate}
         autoOk={true}
-        onChange={this.props.onChange}/>
+        onChange={props.onChange}/>
     )
-  }
-  }),
+  },
 
-  InputField: React.createClass({
-    render: function() {
+  InputField: (props) => {
       return (
         <TextField
-          type={this.props.type}
-          id={this.props.id}
-          onChange={this.props.handleChange}
-          floatingLabelText={this.props.label}>
+          type={props.type}
+          id={props.id}
+          onChange={props.handleChange}
+          floatingLabelText={props.label}>
         </TextField>
       )
     }
-  })
 }
 export default Components;

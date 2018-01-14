@@ -1,11 +1,11 @@
 import components from "./mdlComponents"
-import React from "react"
+import React, { Component } from "react"
 import Api from "../api"
 
-var Header = React.createClass({
-  render: function() {
+class Header extends Component {
+  render() {
     return <components.Header {...this.props} title="Migration Track"/>
   }
-})
+}
 
-module.exports = Header;
+export default Header;

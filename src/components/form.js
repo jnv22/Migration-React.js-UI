@@ -1,10 +1,10 @@
-import React from "react"
+import React, { Component } from "react"
 import components from "./mdlComponents"
 import FlatButton from 'material-ui/FlatButton';
 
 
-module.exports = React.createClass({
-  render: function() {
+class form extends Component {
+  render() {
     // In-place hack for React material design, AutoComplete, 'datasource'.  Unfortunately,
     // this component requires data to be in an array.  We need to have an object, for us to reference the
     // db_id.  So we must first turn all results returned from the db into an array, then after selecting our choice,
@@ -32,4 +32,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}
+
+export default form;
